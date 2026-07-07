@@ -166,4 +166,4 @@ if st.button("Predict probability"):
         st.write(f"{prob:.2%}")
 
     except Exception as e:
-        st.error(f"Prediction failed: {e}")
+        st.error(f"Failed to load model: {e}")

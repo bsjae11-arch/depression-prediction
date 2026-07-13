@@ -1,27 +1,21 @@
 import streamlit as st
-import pandas as pd
 import joblib
 from huggingface_hub import hf_hub_download
 
-st.title("Depression Probability Prediction")
-st.write("Enter the following information:")
-
-# 모델 불러오기
 @st.cache_resource
 def load_model():
     model_path = hf_hub_download(
         repo_id="bsjae/depression",
         filename="model_voting_gbm_pipeline_compressed.pkl"
     )
-    model = joblib.load(model_path)
-    return model
+    return joblib.load(model_path)
 
-try:
-    model = load_model()
-    st.success("Model loaded successfully.")
-except Exception as e:
-    st.error(f"Failed to load model: {e}")
-    st.stop()
+with st.spinner("Loading prediction model..."):
+    try:
+        model = load_model()
+    except Exception as e:
+        st.exception(e)
+        st.stop()
 
 # numeric
 Age = st.number_input("Age", min_value=19, max_value=100, value=30, step=1)

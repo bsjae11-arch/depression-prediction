@@ -11,7 +11,7 @@ st.write("Enter the following information:")
 def load_model():
     model_path = hf_hub_download(
         repo_id="bsjae/depression",
-        filename="model_voting_gbm_pipeline.pkl"
+        filename="model_voting_gbm_pipeline_compressed.pkl"
     )
     model = joblib.load(model_path)
     return model
